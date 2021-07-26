@@ -1,0 +1,75 @@
+import React from 'react';
+import { useMapEvents, Marker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import TheMap from './themap';
+import { URL } from '../../../utils/AppConfig';
+import { Fold } from 'react-rounder/Fold';
+
+const Map = () => {
+  const [isAdd, setAdd] = React.useState(false);
+  const [ElPosition, setPosition] = React.useState<any>(null);
+  const [MapID,setMapID] = React.useState<any>({id:null, zoom:3, minZoom:2, maxZoom:5});
+  const [IsLoad,setLoad] = React.useState(false);
+  const [mapData, setMapData] = React.useState<any>(null);
+  const [userID, setUserID] = React.useState<any>(null);
+
+  React.useEffect( () => {
+    const IsMap = localStorage.getItem("MapID");
+    if(IsMap){
+      setMapID({
+        id: IsMap,
+        zoom:Number(localStorage.getItem("MapZoom")),
+        minZoom:Number(localStorage.getItem("MapMinZ")),
+        maxZoom:Number(localStorage.getItem("MapMaxZ"))
+      });
+      console.log("Paramètres de la carte:",{
+        id: IsMap,
+        zoom:Number(localStorage.getItem("MapZoom")),
+        minZoom:Number(localStorage.getItem("MapMinZ")),
+        maxZoom:Number(localStorage.getItem("MapMaxZ"))
+      });
+
+      fetch(URL+"map/"+IsMap+".json")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setMapData(result);
+            setLoad(true);
+          },
+          (error) => {
+            console.log(error);
+            alert("Une erreur est survenue lors du chargement des données, consulter la console pour plus d'informations.");
+          }
+        );
+    }else{
+      alert('Erreur: MapID est null');
+    }
+    const IsUser = localStorage.getItem("PJ");
+    IsUser ? setUserID(IsUser) : null;
+
+  },[]);
+  function LocationMarker() {
+    if(isAdd){
+      useMapEvents({
+        dblclick(e:any){
+          setPosition([e.latlng.lat,e.latlng.lng]);
+        },
+      });
+    }   
+    
+    return ElPosition === null ? null : (
+      <Marker position={ElPosition} >
+      </Marker>
+    )
+  }
+    return (
+      <>
+      {
+        IsLoad ? (<TheMap MapID={MapID} setAdd={setAdd} isAdd={isAdd} ElPosition={ElPosition} setPosition={setPosition} LocationMarker={LocationMarker} userID={userID} mapData={mapData} />) : (<div><div className="m-auto w-0" ><Fold size={50} color='purple' /></div><div>Chargement ...</div></div>)
+         
+      }
+      </>
+    )
+}
+
+export default Map;

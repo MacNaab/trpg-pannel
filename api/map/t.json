@@ -1,0 +1,17 @@
+{
+	"Commun": [
+	  {
+		"icon": "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
+		"img": "https://sm.ign.com/ign_fr/news/w/witcher-3s/witcher-3s-blood-and-wine-map-compared-to-wild-hunt_wrju.jpg",
+		"titre": "Bienvenue à la vigne",
+		"description": "-Depuis quel y a goûté, elle ne peux plus s'en passer -Coucher avec un plombier, il n'est plus question -Bien souvent mal rasé, et le muscle bombé -Y'a qu'un métier pour l'exciter, et ses vigneron \nUn vigneron, à la maison\nPeux importe, son prénom\nDes mains épaisses\nLui caresse les fesses\nUn vigneron, à la maison  -Du beaujolais, au muscader\nElle a tout essayé, dans toute les régions\nElle a testé, les charpentiers -Avant d'arriver à cette conclusion  -Un vigneron, à la maison -Peux importe, son prénom -Des mains épaisses -Lui caresse les fesses -Un vigneron, à la maison  -Elle c'est fait draguée, par des fonctionnaires syndiqué -Elle ne peux plus blérer, l'administration -Elle n'a pas peur, des agriculteurs -Mes pour elle, il n'y a pas d'erreur, et aucune comparaison  -Un vigneron, à la maison -Peux importe, son prénom -Des mains épaisses -Lui caresse les fesses -Un vigneron, à la maison",
+		"position": [
+		  0,
+		  0
+		]
+	  }
+	],
+	"Player": {
+	  "admin": []
+	}
+  }

@@ -1,0 +1,17 @@
+{
+    "Commun": [
+      {
+        "icon": "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
+        "img": "https://assets-jpcust.jwpsrv.com/thumbnails/50w6pd35-720.jpg",
+        "titre": "Bienvenue dans le désert",
+        "description": "Moi je traîne dans le désert depuis plus de 28 jours Et déjà quelque mirages me disent de faire demi-tour La fée des neiges me suit tapant sur son tambour Les fantômes du syndicat des marchands d'incertitudes Se sont glissés jusqu'à ma lune, reprochant mon attitude C'est pas très populaire le goût d'la solitude.  Quand t'es dans le désert depuis trop longtemps Tu t'demandes à qui ça sert toutes les règles un peu truquées Du jeu qu'on veut te faire jouer Les yeux bandés",
+        "position": [
+          0,
+          0
+        ]
+      }
+    ],
+    "Player": {
+      "admin": []
+    }
+  }

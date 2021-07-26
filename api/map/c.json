@@ -1,0 +1,17 @@
+{
+    "Commun": [
+      {
+        "icon": "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
+        "img": "https://static.wikia.nocookie.net/witcher/images/f/f3/Tw1_Vizima.jpeg",
+        "titre": "Wyzima",
+        "description": "Lieu de départ de notre aventure. Il s'agit de la capitale de la Témérie qui est actuellement envahi par l'Empire Nilfgaardien. Nous nous sommes enfuis de la ville par les égouts menant vers une ancienne crypte elfique puis avons regagné les faubourgs avant de nous faire attaqué par le Cerbère..",
+        "position": [
+          60.87721621499467,
+          13.848281130785844
+        ]
+      }
+    ],
+    "Player": {
+      "admin": []
+    }
+  }

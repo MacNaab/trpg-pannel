@@ -1,0 +1,17 @@
+{
+    "Commun": [
+      {
+        "icon": "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
+        "img": "https://i.ytimg.com/vi/Tpe9yND6Sok/maxresdefault.jpg",
+        "titre": "Bienvenue dans les îles",
+        "description": "What will we do with a drunken sailor? Way hay and up she rises Early in the morning! Shave his belly with a rusty razor Way hay and up she rises Early in the morning! Put him in a long boat till his sober Way hay and up she rises Early in the morning! Stick him in a scupper with a hosepipe bottom Way hay and up she rises Early in the morning! Put him in the bed with the captains daughter Way hay and up she rises Early in the morning! That's what we do with a drunken sailor Way hay and up she rises Early in the morning! Way hay and up she rises Way hay and up she rises Way hay and up she rises Early in the morning!",
+        "position": [
+          0,
+          0
+        ]
+      }
+    ],
+    "Player": {
+      "admin": []
+    }
+  }
