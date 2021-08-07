@@ -1,17 +1,7 @@
 import React from 'react';
 import { ColorList } from '../../utils/AppConfig';
-import IconList from './IconList';
 
 const uuid = require('react-uuid');
-
-const ListedIcon = IconList.map ( (e) =>
-<div key={uuid()} className="h-32 w-32 rounded-xl grid grid-cols-1" >
-  <div className="place-self-center">
-    <p>{e.icon}</p>
-    <p>{e.id}</p>
-  </div>
-</div>
-);
 
 const ListedColor = ColorList.map ( (e) =>
 <div key={uuid()} style={{background: e.background}} className="h-32 w-32 rounded-xl grid grid-cols-1" >
@@ -53,8 +43,8 @@ export default function Modal(props:any){
             <div className="mx-auto text-base font-medium leading-relaxed text-blueGray-700 "> 
               <div className="container items-center ">
                 <div className="overflow-y-auto border-t whitespace-nowrap scroll-hidden">
-                    <div className="flex flex-wrap items-center gap-2 ml-2">
-                        {ListedIcon}
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
+                        Liste des icones disponible <a target="_blank" rel="noreferrer" href="https://react-icons.github.io/react-icons/icons?name=gi">ici.</a>
                     </div>
                 </div>
               </div>

@@ -1,21 +1,20 @@
 import React from 'react';
 import { VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import { GrEdit } from 'react-icons/gr';
-// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { VerifEdit } from './export';
 import { ColorList } from '../../utils/AppConfig';
-import IconList from './IconList';
+import * as GameIcons from 'react-icons/gi';
 
 const uuid = require('react-uuid');
 
 const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
 
 const ColorItems = ColorList.map( (e) => <option key={uuid()} >{e.id}</option> );
-const IconItems = IconList.map( (e) => <option key={uuid()}>{e.id}</option>  );
+const IconItems = Object.keys(GameIcons).map( (e) => <option key={uuid()}>{e}</option>  );
 
 export default function Card(props:any){
-    const {e, isAdmin} = props;
+    const {e, isAdmin, setErr} = props;
     const [isEdit,setEdit] = React.useState(false);
     const [data,setData] = React.useState<any>(e);
     const [SavedData,setSavedData] = React.useState<any>(e);
@@ -40,8 +39,10 @@ export default function Card(props:any){
       "contentStyle": { "background": findColor.background, "color": "#fff", "textAlign": "justify" as "justify" },
       "contentArrowStyle": { "borderRight": findColor.borderRight },
       "iconStyle": { "background": findColor.background, "color": "#fff" },
-    }
-    const find:any = IconList.find( f => f.id === SavedData.icon);
+    };
+
+    const NGame:any = GameIcons;
+    const GetKeyValue:any = Object.keys(GameIcons).includes(SavedData.icon) ? NGame[SavedData.icon] : NGame.GiPerspectiveDiceSixFacesRandom ;
 
     return (
         <VerticalTimelineElement
@@ -50,7 +51,7 @@ export default function Card(props:any){
             contentArrowStyle={StyleColor.contentArrowStyle}
             date={SavedData.date}
             iconStyle={StyleColor.iconStyle}
-            icon={find.icon}
+            icon={<GetKeyValue />}
         >
             {
                 isAdmin ? (
@@ -103,7 +104,7 @@ export default function Card(props:any){
     <button type="button"
         className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
         onClick={function(){
-            VerifEdit(data);
+            VerifEdit(data,setErr);
             setSavedData(data);
             setEdit(false);
         }}

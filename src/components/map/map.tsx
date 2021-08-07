@@ -6,7 +6,7 @@ function HomePage(){
     const Map = React.useMemo( () => 
         dynamic(
             () => import('./components/map'), {
-                loading: () => <div>
+                loading: () => <div className="my-10">
                     <div className="m-auto w-0" ><Fold size={50} color='purple' /></div>
                     <div className="text-center" >Chargement ...</div>
                                 </div>,

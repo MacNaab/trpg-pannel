@@ -1,30 +1,29 @@
 import React from 'react';
 import { ColorList } from '../../utils/AppConfig';
-import IconList from './IconList';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { VerifAdd } from './export';
+import AutoComplete from '../autocomplete';
+import GameIconList from '../gameIconList';
+import * as GameIcons from 'react-icons/gi';
 
 const uuid = require('react-uuid');
 
-// const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
-
 const ColorItems = ColorList.map( (e) => <option key={uuid()} >{e.id}</option> );
-const IconItems = IconList.map( (e) => <option key={uuid()}>{e.id}</option>  );
 
 export default function Modal(props:any){
-    const {setAdeed} = props;
+    const {setAdeed, setErr, setSucc} = props;
     const [p, setP] = React.useState('');
     const [color, setColor] = React.useState<any>('white');
     const [icon, setIcon] = React.useState<any>(null);
     const [form, setForm] = React.useState<any>({h3:'',h4:'',date:'',color:'',icon:''});
     const [isAdd, setAdd] = React.useState<any>(null);
 
-    const ChangeIcon = (event:any) => {
-      const { value } = event.target;
-      const find = IconList.find( e => e.id === value);
+    const ChangeIcon = (value:any) => {
       setForm({ ...form, icon:value});
-      find ? setIcon(find.icon) : null;
+      const NGame:any = GameIcons;
+      const GetKeyValue:any = Object.keys(GameIcons).includes(value) ? NGame[value] : NGame.GiPerspectiveDiceSixFacesRandom ;
+      setIcon(<GetKeyValue size={50} />)
     };
     const ChangeColor = (event:any) => {
       const { value } = event.target;
@@ -97,10 +96,10 @@ export default function Modal(props:any){
                 </div>
               </div>
               <div className="flex gap-5 m-auto mt-3">
-                <select defaultValue="Icon" className="w-52 rounded" onChange={ChangeIcon} >
-                  <option disabled>Icon</option>
-                  {IconItems}
-                </select>
+                <AutoComplete
+                  input={form.icon} setInput={ChangeIcon}
+                  suggestions={GameIconList} placeholder="Icone"
+                />
                 <div className="w-10 h-10 rounded-lg pl-1 pt-1" >
                   { icon }
                 </div>
@@ -117,7 +116,7 @@ export default function Modal(props:any){
                       h4: form.h4,
                       h3: form.h3,
                       p: p
-                    });
+                    },setErr,setSucc);
                     setAdd(r);
                 }}
               >

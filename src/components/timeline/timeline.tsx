@@ -5,6 +5,7 @@ import { GrAdd } from 'react-icons/gr';
 import NewTimeline from './new';
 import Card from './card';
 import { URL } from '../../utils/AppConfig';
+import AlertTW from '../alert';
 
 const uuid = require('react-uuid');
 
@@ -12,6 +13,9 @@ const Example2 = () => {
   const [isAdmin,setAdmin] = React.useState(false);
   const [isAdded,setAdeed] = React.useState(false);
   const [List,setList] = React.useState<any>([]);
+  const [err,setErr] = React.useState<any>(false);
+  const [succ,setSucc] = React.useState<any>(false);
+
   React.useEffect( () => {
     const userID = localStorage.getItem("PJ");
     if(userID){
@@ -20,15 +24,15 @@ const Example2 = () => {
       }
     }
     // load data
-    fetch(URL+"timeline/data.json")
+    fetch(URL+"timeline/data.json", {cache: "no-store"})
       .then(res => res.json() )
       .then(
         (result) => { setList(result); },
-        (error) => { console.log("Erreur lors du chargement des données:",error); alert('Une erreur est survenu durant le chargement de la base de donnée. Consulter la console pour plus d\'informations.'); }
+        (error) => { console.log("Erreur lors du chargement des données:",error); setErr('Une erreur est survenu durant le chargement de la base de donnée. Consulter la console pour plus d\'informations.'); }
         )
   },[]);
   const Listed = List.map( (e:any) => {
-    return (<Card key={uuid()} e={e} isAdmin={isAdmin} />);
+    return (<Card key={uuid()} e={e} isAdmin={isAdmin} setErr={setErr} />);
   }
   );
   function AddTimeline(){
@@ -51,12 +55,22 @@ const Example2 = () => {
   }
   function IsNewTime(){
     if(isAdded){
-      return <NewTimeline setAdeed={setAdeed} />
+      return <NewTimeline setAdeed={setAdeed} setErr={setErr} setSucc={setSucc} />
     }else{return null;}
+  }
+  
+  function Alerted(){
+    if(err){
+      return <AlertTW type="fail" message={err} />
+    }else if(succ){
+      return <AlertTW message={err} />
+    }
+    return null
   }
   
   return (
     <>
+      <Alerted />
       <IsNewTime />
       <VerticalTimeline>
         <AddTimeline />

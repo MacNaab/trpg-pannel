@@ -5,10 +5,10 @@ import MarkerC from './Marker';
 const uuid = require('react-uuid');
 
 export default function Layered(props:any){
-    const { userID, mapData } = props;
+    const { userID, mapData, setErr, setSucc } = props;
     const users = Object.keys(mapData.Player);
     const Cmarker = mapData.Commun.map( (e:any) => 
-        <MarkerC body="Commun" key={uuid()} position={e.position} icon={e.icon} img={e.img} titre={e.titre} description={e.description}  />
+        <MarkerC setErr={setErr} setSucc={setSucc} userID={props.userID} bodyCard="Commun" key={uuid()} markerData={e} />
     );
     if(userID === 'admin'){
         const Alayer = users.map( (f:any) =>

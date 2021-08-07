@@ -2,8 +2,8 @@ export default function Alert(props:any){
     const {err , setError} = props;
     
     return (
-      <div className="container items-center px-5 py-12 lg:px-20 absolute">
-        <div className="w-full text-red-600 border rounded-lg shadow-xl ">
+      <div className="container items-center py-12 absolute" style={{maxWidth:1000}}>
+        <div className="text-red-600 border mx-auto rounded-lg shadow-xl bg-white" style={{maxWidth:800}} >
           <div className="flex items-center justify-between px-6 py-4 mx-auto ">
             <div className="flex">
               <svg xmlns="http://www.w3.org/2000/svg" className="mr-4 icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">

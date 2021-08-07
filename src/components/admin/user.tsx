@@ -2,24 +2,36 @@ import React from 'react';
 import Row from './component/row';
 import { URL } from '../../utils/AppConfig';
 import NewUser from './component/newUser';
+import AlertTW from '../alert';
 
 const uuid = require('react-uuid');
 
 export default function User(props:any){
   const [dataBase,setDataBase] = React.useState<any>([]);
+  const [err,setErr] = React.useState<any>(false);
+  const [succ,setSucc] = React.useState<any>(false);
 
-  const Rows = dataBase.map( (e:any,i:any) =>
+  const Rows = dataBase.map( (e:any) =>
     <>
-      { dataBase[i] ? <Row e={e} key={uuid()} /> : <span key={uuid()}></span> }
+      { dataBase[0] ? <Row e={e} key={uuid()} setSucc={setSucc} setErr={setErr} /> : null }
     </>
   );
 
+  function Alerted(){
+    if(err){
+      return <AlertTW type="fail" message={err} />
+    }else if(succ){
+      return <AlertTW message={err} />
+    }
+    return null
+  }
+
   React.useEffect( () => {
-    fetch(URL+"user/data.json").then( res => res.json() ).then( (data:any) => { setDataBase(data); }, (error) => { console.log(error); alert('Une erreur est survenu, consultez la console pour plus d\'informations') })
+    fetch(URL+"user/data.json", {cache: "no-store"}).then( res => res.json() ).then( (data:any) => { setDataBase(data); }, (error) => { console.log(error); setErr('Une erreur est survenu, consultez la console pour plus d\'informations') })
   },[]);
     return (
 <div>
-
+<Alerted />
 <div className="m-5">
   <span 
     className="p-3 border rounded-md cursor-pointer hover:border-gray-800 hover:bg-gray-100"

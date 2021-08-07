@@ -1,20 +1,22 @@
 import React from 'react';
 import { MapList } from '../../utils/AppConfig';
+import ImgSkeleton from '../ImgSkeleton';
 
 const uuid = require('react-uuid');
 
 export default function Menu(props:any){
     const Mapped = MapList.map( (e) =>
 <figure key={uuid()} className="bg-gray-100 rounded-xl p-8 place-items-center w-1/4">
-<img 
+<ImgSkeleton 
     onClick={function(){ 
         localStorage.setItem('MapID',e.id);
+        localStorage.setItem('MapTitre',e.titre);
         localStorage.setItem('MapMaxZ',(e.maxZoom).toString() );
         localStorage.setItem('MapMinZ',(e.minZoom).toString() );
         localStorage.setItem('MapZoom',(e.zoom).toString() );
         props.setEtape('map');
     }}
-    className="w-32 h-32 rounded-full mx-auto cursor-pointer"
+    className="w-32 h-32 rounded-full mx-auto cursor-pointer border-2 border-white"
     src={e.img} 
     alt="carte"
 />

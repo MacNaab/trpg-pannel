@@ -1,20 +1,33 @@
 import React from 'react';
 import{ URL } from '../../utils/AppConfig';
 import ReactJsonViewer from 'react-json-view';
+import AlertTW from '../alert';
 
 export default function JsonView(props:any){
     const [json_object,set_json_object] = React.useState<any>(null);
     const [isLoad,setLoad] = React.useState(false);
     const [src,setSrc] = React.useState('');
+    const [err,setErr] = React.useState<any>(false);
+    const [succ,setSucc] = React.useState<any>(false);
     const loadJson = (event:any) => {
         const {value} = event.target;
         isLoad ? null : setLoad(true);
         setSrc(value+".json");
-        fetch(URL+value+".json").then( res => res.json() ).then( (data:any) => { set_json_object(data); setLoad(false) }, (error) => { console.log(error); alert('Une erreur est survenu, consultez la console pour plus d\'informations') })
+        fetch(URL+value+".json", {cache: "no-store"}).then( res => res.json() ).then( (data:any) => { set_json_object(data); setLoad(false) }, (error) => { console.log(error); setErr('Une erreur est survenu, consultez la console pour plus d\'informations') })
     };
+
+    function Alerted(){
+      if(err){
+        return <AlertTW type="fail" message={err} />
+      }else if(succ){
+        return <AlertTW message={err} />
+      }
+      return null
+    }
 
     return (
         <div>
+    <Alerted />
 <div className="m-5 flex justify-center gap-10">
   <span 
     className="p-3 border rounded-md cursor-pointer hover:border-gray-800 hover:bg-gray-100"
@@ -37,8 +50,8 @@ export default function JsonView(props:any){
       })
         .then(data => data.json())
         .then(
-            (result) => {console.log(result) ; },
-            (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+            (result) => {console.log(result); setSucc("Mise à jour effectuée avec succès.") },
+            (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
         );
     }}
 >

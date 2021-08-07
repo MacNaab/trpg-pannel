@@ -1,5 +1,6 @@
 import React from 'react';
 import { URL } from '../../../utils/AppConfig';
+import AlertTW from '../../alert';
 
 export default function NewUser(){
     const [form,setForm] = React.useState({
@@ -11,7 +12,22 @@ export default function NewUser(){
         const { name, value } = event.target;
         setForm({ ...form, [name]:value});
     }
+
+    const [err,setErr] = React.useState<any>(false);
+    const [succ,setSucc] = React.useState<any>(false);
+
+    function Alerted(){
+      if(err){
+        return <AlertTW type="fail" message={err} />
+      }else if(succ){
+        return <AlertTW message={err} />
+      }
+      return null
+    }
+
     return (
+      <>
+        <Alerted />
         <section className="text-blueGray-700 ">
         <div className="container items-center px-5 lg:px-20">
           <div className="flex flex-col w-full p-10 mx-auto my-6 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-4/6 md:w-3/4 md:mt-0">
@@ -50,13 +66,14 @@ export default function NewUser(){
                       })
                         .then(data => data.json())
                         .then(
-                            (result) => {console.log(result); alert('Nouvel Utilisateur Ajouté dans la Base de donnée !') ; },
-                            (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+                            (result) => {console.log(result); setSucc('Nouvel Utilisateur Ajouté dans la Base de donnée !') ; },
+                            (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
                         );
                 }}
             > Ajouter </button>
           </div>
         </div>
       </section>
+      </>
     )
 }

@@ -7,8 +7,10 @@ function HomePage(){
         dynamic(
             () => import('./timeline'), {
                 loading: () => <div>
-                    <div className="m-auto w-0" ><Fold size={50} color='purple' /></div>
-                    <div className="text-center" >Chargement ...</div>
+                    <span>.</span>
+                    <div className="m-auto w-0 mt-48" ><Fold size={50} color='green' /></div>
+                    <div className="text-center mb-48" >Chargement ...</div>
+                    <span>.</span>
                                 </div>,
                 ssr: false
             }

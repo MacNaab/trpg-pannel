@@ -12,7 +12,7 @@ import { URL } from '../../utils/AppConfig';
 
 const ObjID = ['date','color','icon','h3','h4','p'];
 
-export function VerifAdd(data:any){
+export function VerifAdd(data:any,setErr:any,setSucc:any){
     let Err:any = '';
     ObjID.forEach(function(e){
         data[e] ? null : Err += e+" ";
@@ -26,15 +26,15 @@ export function VerifAdd(data:any){
           })
             .then(data2 => data2.json())
             .then(
-                (result) => {console.log(result) ; },
-                (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+                (result) => {console.log(result) ; setSucc("La nouvelle entrée a bien été ajoutée dans la database.") },
+                (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
             );
         return ("Ajout de la nouvelle entrée dans la database !");
     }
 
 }
 
-export function VerifEdit(data:any){
+export function VerifEdit(data:any,setErr:any){
     console.log(data);
     fetch(URL+"timeline/edit.php", {
         method: "POST",
@@ -43,6 +43,6 @@ export function VerifEdit(data:any){
         .then(data2 => data2.json())
         .then(
             (result) => {console.log(result) ; },
-            (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+            (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
         );
 }

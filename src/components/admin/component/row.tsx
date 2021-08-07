@@ -2,10 +2,16 @@ import React from 'react';
 import { URL } from '../../../utils/AppConfig';
 
 export default function Row(props:any){
-    const { e } = props;
+    const { e, setSucc, setErr } = props;
     const [ form,setForm ] = React.useState(e);
     const [ saveForm, setSaveForm ] = React.useState(e);
     const [ isEdit,setEdit ] = React.useState(false);
+    const str = e.mdp;
+    let s=str.substring(0,1);
+    let i=1;
+    while(i < str.length-1){s+='*';i++}
+    s+=str.substring(str.length-1);
+    const [ showMDP,setMDP] = React.useState(s);
 
     const handleChange = (event:any) => {
         const { name, value } = event.target;
@@ -20,7 +26,7 @@ export default function Row(props:any){
                         isEdit ? (
                             <input className="border rounded p-1" value={form.nc} name='nc' onChange={handleChange} />
                         ):(
-                            saveForm.nc
+                            saveForm.nc 
                         )
                     }
                 </div>
@@ -31,7 +37,11 @@ export default function Row(props:any){
                         isEdit ? (
                             <input className="border rounded p-1" value={form.mdp} name='mdp' onChange={handleChange} />
                         ):(
-                            saveForm.mdp
+                            <span  
+                                className="cursor-help"
+                                onMouseEnter={function(){ setMDP(saveForm.mdp)} }
+                                onMouseLeave={function(){ setMDP(s)} }
+                            >{showMDP}</span>
                         )
                     }
                 </div>
@@ -67,8 +77,8 @@ export default function Row(props:any){
                                   })
                                     .then(data => data.json())
                                     .then(
-                                        (result) => {console.log(result); alert('Nouvel Utilisateur Ajouté dans la Base de donnée !') ; },
-                                        (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+                                        (result) => {console.log(result); setSucc('Nouvel Utilisateur Ajouté dans la Base de donnée !') ; },
+                                        (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
                                     );
                             }}
                         >Valider</span>

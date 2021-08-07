@@ -15,7 +15,7 @@ export default function Formik(props:any) {
   React.useEffect( () => {
     const local = localStorage.getItem("PJ");
     if(local){props.setLogged(true);}
-    fetch(URL+'user/data.json').then(res => res.json()).then( (data) => { setDataForm(data); }, (err) => { console.log(err);alert("Une erreur est survenue, consultez la console pour plus d'informations.");})
+    fetch(URL+'user/data.json', {cache: "no-store"}).then(res => res.json()).then( (data) => { setDataForm(data); }, (err) => { console.log(err); setError(true) ; setErrList("Une erreur est survenue lors du chargement des données, consultez la console pour plus d'informations.");})
   },[]);
 
   const verifID = () => {

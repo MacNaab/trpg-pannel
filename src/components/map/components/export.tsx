@@ -11,7 +11,7 @@ import { URL } from '../../../utils/AppConfig';
 
 const ObjID = ['icon','img','titre','description'];
 
-export function VerifAdd(id:any,body:any,data:any,position:any){
+export function VerifAdd(id:any,body:any,data:any,position:any,setErr:any,setSucc:any){
     let Err:any = '';
     id ? null : Err += "MapID ";
     body ? null : Err+="Layer ";
@@ -20,7 +20,7 @@ export function VerifAdd(id:any,body:any,data:any,position:any){
     });
     position ? data.position = position :  Err+="position ";
     if(Err){
-        alert ("Erreur: vous devez remplir tous les champs ("+Err+")")
+        setErr("Erreur: vous devez remplir tous les champs ("+Err+")")
     }else{
         const output = {
             id: id,
@@ -33,14 +33,14 @@ export function VerifAdd(id:any,body:any,data:any,position:any){
           })
             .then(dataload => dataload.json())
             .then(
-                (result) => {console.log(result) ; },
-                (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+                (result) => {console.log(result) ; setSucc("Nouveau Marker ajouté dans la base de donnée.") },
+                (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
             );
     }
 
 }
 
-export function VerifEdit(id:any,body:any,data:any){
+export function VerifEdit(id:any,body:any,data:any,setErr:any,setSucc:any){
     const output = {
         id: id,
         body: body,
@@ -52,7 +52,7 @@ export function VerifEdit(id:any,body:any,data:any){
       })
         .then(dataload => dataload.json())
         .then(
-            (result) => {console.log(result) ; },
-            (error) => { console.log(error); alert ("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
+            (result) => {console.log(result) ; setSucc("Edition du Marker réussite.") },
+            (error) => { console.log(error); setErr("Une erreur c'est produite durant l'envoie des données, plus d'information dans la console."); }
         );
 }

@@ -4,30 +4,40 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { VerifEdit } from './export';
 import MarkerIcon from './markerIcon';
+import ImgSkeleton from '../../ImgSkeleton';
+import { CSS_COLOR_NAMES } from '../../../utils/AppConfig';
 
 const uuid = require('react-uuid');
 
-const MarkerIconList = MarkerIcon.map( (e) => 
+const MarkerIconList = MarkerIcon.map( (e:any) => 
   <option key={uuid()} value={e.id}>
     {e.id}
   </option>
 );
+const MarkerIconColorList = CSS_COLOR_NAMES.map( (e:any) => 
+  <option key={uuid()} value={e}>
+    {e}
+  </option>
+);
 
 export default function Card(props:any){
+    const { setErr, setSucc, markerData } = props;
     const [isEdit,setEdit] = React.useState(false);
     const [form,setForm] = React.useState({
-        position: props.position,
-        icon: props.icon,
-        img: props.img,
-        titre: props.titre,
-        description: props.description
+        position: markerData.position,
+        icon: markerData.icon,
+        iconColor: markerData.iconColor ? markerData.iconColor : "black",
+        img: markerData.img,
+        titre: markerData.titre,
+        description: markerData.description
     });
     const [SaveForm,setSaveForm] = React.useState({
-        position: props.position,
-        icon: props.icon,
-        img: props.img,
-        titre: props.titre,
-        description: props.description
+        position: markerData.position,
+        icon: markerData.icon,
+        iconColor: markerData.iconColor ? markerData.iconColor : "black",
+        img: markerData.img,
+        titre: markerData.titre,
+        description: markerData.description
     });
     const handleChange = (event:any) => {
         if(event.target){
@@ -56,7 +66,10 @@ export default function Card(props:any){
                     <input onChange={handleChange} value={form.img} name="img" className="w-full mb-4 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Image (URL)" />
                 </>
             ) : (
-                <img className="object-cover object-center w-full mb-4 lg:h-48 md:h-36 rounded-xl" src={SaveForm.img} alt="blog" />
+                <ImgSkeleton
+                    className="object-cover object-center w-full mb-4 lg:h-48 md:h-36 rounded-xl"
+                    src={SaveForm.img}
+                />
             )
         }
         <h1 className="mx-auto mb-8 text-2xl font-semibold leading-none tracking-tighter text-black title-font">
@@ -77,8 +90,12 @@ export default function Card(props:any){
             isEdit ? (
 <div className="m-2">
     <select defaultValue={form.icon} name="icon" onChange={handleChange} className="p-1 flex m-auto" >
-        <option disabled>Couleur du Marker</option>
+        <option disabled>Type de Marker</option>
         {MarkerIconList}
+    </select>
+    <select defaultValue={form.iconColor} name="iconColor" onChange={handleChange} className="p-1 flex m-auto" >
+        <option disabled>Couleur du Marker</option>
+        {MarkerIconColorList}
     </select>
 </div>    
             ) : ( null )
@@ -89,7 +106,7 @@ export default function Card(props:any){
                   className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                   onClick={function(){
                       setSaveForm(form);
-                      VerifEdit(localStorage.getItem("MapID"),props.bodyCard,form);
+                      VerifEdit(localStorage.getItem("MapID"),props.bodyCard ? props.bodyCard : "Commun",form,setErr,setSucc);
                       setEdit(false);
                     }}
                 >

@@ -5,6 +5,16 @@ Utilitaire en ligne pour la gestion chronologique et cartographique de campagne 
 * Frise interactive via React-Vertical-Timeline
 * Serveur via PHP
 
+## Liens
+- [Feuille de route](https://github.com/MacNaab/trpg-pannel/projects/1)
+- [Mise à jour](https://github.com/MacNaab/trpg-pannel/blob/main/UPDATE.md)
+
+## Preview
+
+![Page de connexion](./image/form.png)
+![Carte intéractive](./image/map.png)
+![Frise chronologique](./image/frise.png)
+
 ## Build (for Static)
 Cette option est utile si vous voulez un rendu Static sans devoir modifier/copier tout le répertoire.
 1. Copiez les fichiers du dossier `build` et collez-les sur votre serveur.
@@ -46,7 +56,7 @@ Maintenant, votre projet est prêt à être déployé. Tous les fichiers génér
 
 ----
 
-Arbre du projet:
+## Arbre du projet
 ```
 ├── README.md # README file
 

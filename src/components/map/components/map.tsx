@@ -1,9 +1,10 @@
 import React from 'react';
-import { useMapEvents, Marker } from 'react-leaflet';
+import { useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import TheMap from './themap';
 import { URL } from '../../../utils/AppConfig';
 import { Fold } from 'react-rounder/Fold';
+import Marker from './Marker';
 
 const Map = () => {
   const [isAdd, setAdd] = React.useState(false);
@@ -12,6 +13,9 @@ const Map = () => {
   const [IsLoad,setLoad] = React.useState(false);
   const [mapData, setMapData] = React.useState<any>(null);
   const [userID, setUserID] = React.useState<any>(null);
+  const [err,setErr] = React.useState<any>(false);
+  const [succ,setSucc] = React.useState<any>(false);
+
 
   React.useEffect( () => {
     const IsMap = localStorage.getItem("MapID");
@@ -28,8 +32,10 @@ const Map = () => {
         minZoom:Number(localStorage.getItem("MapMinZ")),
         maxZoom:Number(localStorage.getItem("MapMaxZ"))
       });
+      
+      document.title = "Carte interactive - " + localStorage.getItem("MapTitre");
 
-      fetch(URL+"map/"+IsMap+".json")
+      fetch(URL+"map/"+IsMap+".json", {cache: "no-store"})
         .then(res => res.json())
         .then(
           (result) => {
@@ -38,11 +44,11 @@ const Map = () => {
           },
           (error) => {
             console.log(error);
-            alert("Une erreur est survenue lors du chargement des données, consulter la console pour plus d'informations.");
+            setErr("Une erreur est survenue lors du chargement des données, consulter la console pour plus d'informations.");
           }
         );
     }else{
-      alert('Erreur: MapID est null');
+      setErr('Erreur: MapID est null');
     }
     const IsUser = localStorage.getItem("PJ");
     IsUser ? setUserID(IsUser) : null;
@@ -58,14 +64,13 @@ const Map = () => {
     }   
     
     return ElPosition === null ? null : (
-      <Marker position={ElPosition} >
-      </Marker>
+      <Marker position={ElPosition} titre="Nouveau Marker" description="[...]" />
     )
   }
     return (
       <>
       {
-        IsLoad ? (<TheMap MapID={MapID} setAdd={setAdd} isAdd={isAdd} ElPosition={ElPosition} setPosition={setPosition} LocationMarker={LocationMarker} userID={userID} mapData={mapData} />) : (<div><div className="m-auto w-0" ><Fold size={50} color='purple' /></div><div>Chargement ...</div></div>)
+        IsLoad ? (<TheMap err={err} setErr={setErr} succ={succ} setSucc={setSucc} MapID={MapID} setAdd={setAdd} isAdd={isAdd} ElPosition={ElPosition} setPosition={setPosition} LocationMarker={LocationMarker} userID={userID} mapData={mapData} />) : (<div className="my-10"><div className="m-auto w-0" ><Fold size={50} color='purple' /></div><div className="text-center">Chargement ...</div></div>)
          
       }
       </>

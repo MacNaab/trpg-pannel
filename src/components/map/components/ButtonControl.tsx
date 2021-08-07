@@ -18,6 +18,7 @@ export default function ButtonControl(props:any) {
             <ChakraProvider>
                 <Drawer setAdd={setAdd} isAdd={isAdd} 
                   NewPosition={NewPosition} setPosition={setPosition}
+                  setErr={props.setErr} setSucc={props.setSucc}
                 />
             </ChakraProvider>
           </div>
