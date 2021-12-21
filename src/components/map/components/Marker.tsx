@@ -5,7 +5,7 @@ import MarkerIcon from './newMarkerIcon';
 
 export default function Mark(props:any){
     const { markerData } = props;
-    const findMaker = MarkerIcon({ color: props.iconColor, e: props.icon })
+    const findMaker = MarkerIcon({ color: markerData.iconColor, e: markerData.icon });
 
     return (
         <Marker

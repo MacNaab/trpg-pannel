@@ -20,7 +20,7 @@ export function VerifAdd(id:any,body:any,data:any,position:any,setErr:any,setSuc
     });
     position ? data.position = position :  Err+="position ";
     if(Err){
-        setErr("Erreur: vous devez remplir tous les champs ("+Err+")")
+        setErr("vous devez remplir tous les champs ("+Err+")")
     }else{
         const output = {
             id: id,

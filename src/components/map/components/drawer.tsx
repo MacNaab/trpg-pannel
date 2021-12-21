@@ -31,7 +31,7 @@ export default function DrawerExample(props:any) {
   const btnRef:any = React.useRef();
   const [form,setForm] = React.useState({
     icon: "",
-    iconColor: "black",
+    iconColor: "Black",
     img: "",
     titre: "",
     description: "",
@@ -99,6 +99,9 @@ export default function DrawerExample(props:any) {
                 </FormLabel>
                 <Switch id="email-alerts" size="lg" isChecked={isAdd} onChange={function(){ isAdd ? setAdd(false) : setAdd(true)}} />
               </FormControl>
+              <small>
+                Double clic sur la carte pour définir la position.
+              </small>
               <hr className="mt-4" />
               <div className="grid justify-items-center gap-2 mt-10">
                 <Select defaultValue="Layer" onChange={(event:any) => { setBody(event.target.value); }}>

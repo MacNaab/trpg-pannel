@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import TheMap from './themap';
 import { URL } from '../../../utils/AppConfig';
 import { Fold } from 'react-rounder/Fold';
-import Marker from './Marker';
+import NewMarker from './newMarker';
 
 const Map = () => {
   const [isAdd, setAdd] = React.useState(false);
@@ -64,8 +64,10 @@ const Map = () => {
     }   
     
     return ElPosition === null ? null : (
-      <Marker position={ElPosition} titre="Nouveau Marker" description="[...]" />
-    )
+      // <Marker position={ElPosition} titre="Nouveau Marker" description="[...]" />
+      // <Marker position={ElPosition} />
+      <NewMarker position={ElPosition} />
+      )
   }
     return (
       <>
